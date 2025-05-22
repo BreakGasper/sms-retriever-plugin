@@ -16,13 +16,23 @@
       </config-file>
       <config-file parent="/*" target="AndroidManifest.xml" />
 
-    <!-- Adding files and gradle configuration to SmsRetrieverPlugin -->
-    <source-file src="src/android/SmsRetrieverPlugin.java" target-dir="src/com/outsystems/smsretriever" />
-    <source-file src="src/android/OtpReceivedInterface.java" target-dir="src/com/outsystems/smsretriever" />
-    <source-file src="src/android/SmsRetrieverHandler.java" target-dir="src/com/outsystems/smsretriever" />
-    <source-file src="src/android/AppSignatureHelper.java" target-dir="src/com/outsystems/smsretriever" />
+      <!-- Agregamos receiver con android:exported -->
+      <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <receiver
+          android:name="com.outsystems.smsretriever.SmsRetrieverHandler"
+          android:exported="true">
+          <intent-filter>
+            <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+          </intent-filter>
+        </receiver>
+      </config-file>
 
-    <framework custom="true" src="src/android/sms-retriever.gradle" type="gradleReference" />
+      <source-file src="src/android/SmsRetrieverPlugin.java" target-dir="src/com/outsystems/smsretriever" />
+      <source-file src="src/android/OtpReceivedInterface.java" target-dir="src/com/outsystems/smsretriever" />
+      <source-file src="src/android/SmsRetrieverHandler.java" target-dir="src/com/outsystems/smsretriever" />
+      <source-file src="src/android/AppSignatureHelper.java" target-dir="src/com/outsystems/smsretriever" />
+
+      <framework custom="true" src="src/android/sms-retriever.gradle" type="gradleReference" />
 
    </platform>
 </plugin>
